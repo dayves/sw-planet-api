@@ -10,8 +10,6 @@ public class PlanetService {
     @Autowired
     private PlanetRepository planetRepository;
 
-//    -
-
     public Planet create(PlanetRepository repository, Planet planet) {
         planet.setExhibitionCount(10);
         planet.setSwApiId(10);

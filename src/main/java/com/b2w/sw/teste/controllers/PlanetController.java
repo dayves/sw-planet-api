@@ -14,6 +14,8 @@ public class PlanetController {
 
     @Autowired
     private PlanetService planetService;
+    @Autowired
+    private PlanetRepository planetRepository;
 
     @GetMapping("")
     public List<Planet> index() {
