@@ -6,6 +6,8 @@ import com.b2w.sw.teste.services.PlanetService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
+import java.net.MalformedURLException;
 import java.util.List;
 
 @RestController
@@ -23,7 +25,7 @@ public class PlanetController {
     }
 
     @PostMapping("")
-    public Planet create(@RequestBody Planet planet) {
+    public Planet create(@RequestBody Planet planet) throws IOException {
         return planetService.create(planetRepository, planet);
     }
 }
