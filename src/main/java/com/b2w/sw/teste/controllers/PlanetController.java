@@ -7,8 +7,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
-import java.net.MalformedURLException;
 import java.util.List;
+import java.util.Locale;
+import java.util.Optional;
+
+import static org.springframework.util.StringUtils.capitalize;
 
 @RestController
 @RequestMapping("/planets")
@@ -20,12 +23,28 @@ public class PlanetController {
     private PlanetRepository planetRepository;
 
     @GetMapping("")
-    public List<Planet> index() {
-        return planetRepository.findAll();
+    public Optional<List<Planet>> index(@RequestParam(required = false) String name) {
+        if (name != null) {
+            return planetRepository.findAllByName(capitalize(name));
+        } else {
+            return Optional.of(planetRepository.findAll());
+        }
     }
 
     @PostMapping("")
     public Planet create(@RequestBody Planet planet) throws IOException {
         return planetService.create(planetRepository, planet);
+    }
+
+    @GetMapping("/{id}")
+    public Optional<Planet> show(@PathVariable String id) {
+        return planetRepository.findById(id);
+    }
+
+    @DeleteMapping("/{id}")
+    public Optional<Planet> destroy(@PathVariable String id) {
+        Optional<Planet> planet = planetRepository.findById(id);
+        planetRepository.deleteById(id);
+        return planet;
     }
 }
