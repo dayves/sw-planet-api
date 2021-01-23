@@ -4,5 +4,5 @@ import com.b2w.sw.teste.models.Planet;
 import org.springframework.data.mongodb.repository.MongoRepository;
 
 public interface PlanetRepository  extends MongoRepository<Planet, String> {
-    public Planet findOneById(String id);
+    public Planet findOneByName(String name);
 }
